@@ -1,4 +1,5 @@
 set nocompatible
+set t_Co=256
 
 runtime! autoload/pathogen.vim
 if exists('g:loaded_pathogen')
@@ -9,8 +10,8 @@ end
 syntax on
 filetype plugin indent on
 
-colorscheme vividchalk
-set background=dark
+colorscheme silent
+" set background=dark
 
 let bash_is_sh=1
 set cinoptions=:0,(s,u0,U1,g0,t0
@@ -176,3 +177,26 @@ let g:yankring_replace_n_pkey = '<leader>['
 let g:yankring_replace_n_nkey = '<leader>]'
 
 set shell=/bin/bash
+set expandtab
+set tabstop=2
+set shiftwidth=2
+
+set mouse-=a
+
+let g:psc_style = 'silent'
+function! s:SwitchPSCStyle()
+  if exists('g:psc_style')
+    if g:psc_style == 'silent'
+      let g:psc_style = 'zenburn'
+    elseif g:psc_style == 'zenburn'
+      let g:psc_style = 'silent'
+    endif
+  else
+    let g:psc_style = 'zenburn'
+  endif
+  execute "colorscheme ".g:psc_style
+endfunction
+map <silent> <F6> :call <SID>SwitchPSCStyle()<CR>
+
+autocmd BufEnter *.tt set filetype=html
+autocmd BufEnter *.module set filetype=php

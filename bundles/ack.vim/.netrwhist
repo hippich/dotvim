@@ -1,0 +1,4 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/usr/share/perl5/Net/Amazon/S3/Request'
+let g:netrw_dirhist_2='/home/pavel/projects/TTM/root/static/js/inc/jquery-mobile'
