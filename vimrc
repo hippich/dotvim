@@ -10,7 +10,7 @@ end
 syntax on
 filetype plugin indent on
 
-colorscheme silent
+colorscheme zenburn
 " set background=dark
 
 let bash_is_sh=1
@@ -183,7 +183,7 @@ set shiftwidth=2
 
 set mouse-=a
 
-let g:psc_style = 'silent'
+let g:psc_style = 'zenburn'
 function! s:SwitchPSCStyle()
   if exists('g:psc_style')
     if g:psc_style == 'silent'
@@ -192,11 +192,12 @@ function! s:SwitchPSCStyle()
       let g:psc_style = 'silent'
     endif
   else
-    let g:psc_style = 'zenburn'
+    let g:psc_style = 'silent'
   endif
   execute "colorscheme ".g:psc_style
 endfunction
 map <silent> <F6> :call <SID>SwitchPSCStyle()<CR>
 
 autocmd BufEnter *.tt set filetype=html
+autocmd BufEnter *. set filetype=html
 autocmd BufEnter *.module set filetype=php
