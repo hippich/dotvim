@@ -66,7 +66,6 @@ set sw=4
 
 " prevent vim from adding that stupid empty line at the end of every file
 set noeol
-set binary
 
 "Ignore these files when completing names and in Explorer
 set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
@@ -201,3 +200,6 @@ map <silent> <F6> :call <SID>SwitchPSCStyle()<CR>
 autocmd BufEnter *.tt set filetype=html
 autocmd BufEnter *. set filetype=html
 autocmd BufEnter *.module set filetype=php
+
+set fileformat=dos
+set fileformats=unix,dos
