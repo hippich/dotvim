@@ -1,6 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/usr/share/perl5/Net/Amazon/S3/Request'
-let g:netrw_dirhist_2='/home/pavel/projects/TTM/root/static/js/inc/jquery-mobile'
-let g:netrw_dirhist_3='/home/pavel/.screenwm.12017.pts-2.MS-7593/current'
-let g:netrw_dirhist_4='/home/pavel/dotvim/plugin'

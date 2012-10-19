@@ -201,3 +201,5 @@ map <silent> <F6> :call <SID>SwitchPSCStyle()<CR>
 autocmd BufEnter *.tt set filetype=html
 autocmd BufEnter *. set filetype=html
 autocmd BufEnter *.module set filetype=php
+
+command W w !sudo tee % > /dev/null
