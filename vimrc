@@ -203,3 +203,5 @@ autocmd BufEnter *.module set filetype=php
 
 set fileformat=dos
 set fileformats=unix,dos
+
+let mojo_highlight_data = 1
