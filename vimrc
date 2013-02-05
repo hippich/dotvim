@@ -10,6 +10,9 @@ end
 syntax on
 filetype plugin indent on
 
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
 colorscheme zenburn
 " set background=dark
 
@@ -207,3 +210,7 @@ set fileformats=unix,dos
 let mojo_highlight_data = 1
 
 command W w !sudo tee % > /dev/null
+
+" Vundle bundles 
+Bundle 'gmarik/vundle'
+Bundle 'Valloric/YouCompleteMe'
