@@ -10,11 +10,11 @@ end
 syntax on
 filetype plugin indent on
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set rtp+=~/.vim/bundle/vundle/
+" call vundle#rc()
 
-colorscheme zenburn
-" set background=dark
+colorscheme zenburn256
+"set background=dark
 
 let bash_is_sh=1
 set cinoptions=:0,(s,u0,U1,g0,t0
@@ -29,7 +29,7 @@ set laststatus=2
 "set statusline=%<%f\ %h%m%r%#warningmsg#%{SyntasticStatuslineFlag()}%*%=%-14.(%l,%c%V%)\ %P
 " highlihgt the file name
 hi User1 term=bold,reverse cterm=bold ctermfg=4 ctermbg=2 gui=bold guifg=Blue guibg=#44aa00
-set statusline=%<%1*%f%*\ %h%m%r%#warningmsg#%{SyntasticStatuslineFlag()}%*%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%1*%f%*\ %h%m%r%#warningmsg#%{SyntasticStatuslineFlag()}%*%=%-14.(%l,%c%V%)\ %P\ %{fugitive#statusline()}
 if filereadable(expand("~/.vim_local"))
   source ~/.vim_local
 endif
@@ -180,8 +180,8 @@ let g:yankring_replace_n_nkey = '<leader>]'
 
 set shell=/bin/bash
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 
 set mouse-=a
 
@@ -212,5 +212,26 @@ let mojo_highlight_data = 1
 command W w !sudo tee % > /dev/null
 
 " Vundle bundles 
-Bundle 'gmarik/vundle'
-Bundle 'Valloric/YouCompleteMe'
+" Bundle 'gmarik/vundle'
+" Bundle 'Valloric/YouCompleteMe'
+
+""""""""""""""
+" tmux fixes "
+""""""""""""""
+" Handle tmux $TERM quirks in vim
+if $TERM =~ '^screen'
+    map <Esc>OH <Home>
+    map! <Esc>OH <Home>
+    map <Esc>OF <End>
+    map! <Esc>OF <End>
+    "map <Esc>[A <Up>
+    "map <Esc>[B <Down>
+    "map <Esc>[C <Right>
+    "map <Esc>[D <Left>
+
+    " tmux will send xterm-style keys when its xterm-keys option is on
+    "execute "set <xUp>=\e[1;*A"
+    "execute "set <xDown>=\e[1;*B"
+    "execute "set <xRight>=\e[1;*C"
+    "execute "set <xLeft>=\e[1;*D"
+endif
