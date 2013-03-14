@@ -1,6 +1,9 @@
 set nocompatible
 set t_Co=256
 
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set list
+
 runtime! autoload/pathogen.vim
 if exists('g:loaded_pathogen')
   call pathogen#helptags()
