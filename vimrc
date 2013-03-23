@@ -214,3 +214,4 @@ command W w !sudo tee % > /dev/null
 " Vundle bundles 
 Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'AutoClose'
