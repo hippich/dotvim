@@ -1,3 +1,5 @@
+set term=screen-256color
+
 set nocompatible
 set t_Co=256
 
@@ -222,19 +224,17 @@ command W w !sudo tee % > /dev/null
 " tmux fixes "
 """"""""""""""
 " Handle tmux $TERM quirks in vim
-if $TERM =~ '^screen'
-    map <Esc>OH <Home>
-    map! <Esc>OH <Home>
-    map <Esc>OF <End>
-    map! <Esc>OF <End>
-    "map <Esc>[A <Up>
-    "map <Esc>[B <Down>
-    "map <Esc>[C <Right>
-    "map <Esc>[D <Left>
+map <Esc>OH <Home>
+map! <Esc>OH <Home>
+map <Esc>OF <End>
+map! <Esc>OF <End>
+"map <Esc>[A <Up>
+"map <Esc>[B <Down>
+"map <Esc>[C <Right>
+"map <Esc>[D <Left>
 
-    " tmux will send xterm-style keys when its xterm-keys option is on
-    "execute "set <xUp>=\e[1;*A"
-    "execute "set <xDown>=\e[1;*B"
-    "execute "set <xRight>=\e[1;*C"
-    "execute "set <xLeft>=\e[1;*D"
-endif
+" tmux will send xterm-style keys when its xterm-keys option is on
+"execute "set <xUp>=\e[1;*A"
+"execute "set <xDown>=\e[1;*B"
+"execute "set <xRight>=\e[1;*C"
+"execute "set <xLeft>=\e[1;*D"
