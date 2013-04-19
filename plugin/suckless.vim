@@ -490,7 +490,7 @@ noremap <silent> <Esc><C-l> :call WindowResize("l")<CR>
 " Alt+[oO]
 noremap <silent>   <A-o> :call WindowCmd("n")<CR>
 "noremap <silent> <S-A-o> :call WindowCmd("n")<CR>:call WindowMove("l")<CR>
-noremap <silent>  <Esc>o :call WindowCmd("n")<CR>
+"noremap <silent>  <Esc>o :call WindowCmd("n")<CR>
 "noremap <silent>  <Esc>O :call WindowCmd("n")<CR>:call WindowMove("l")<CR>
 "
 " Alt+[cC]: collapse/close current window
