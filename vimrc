@@ -217,4 +217,6 @@ command W w !sudo tee % > /dev/null
 " Vundle bundles 
 Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
-Bundle 'AutoClose'
+" Bundle 'AutoClose'
+
+au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
