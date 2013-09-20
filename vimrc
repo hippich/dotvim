@@ -220,3 +220,4 @@ Bundle 'Valloric/YouCompleteMe'
 " Bundle 'AutoClose'
 
 au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
+let g:JSLintHighlightErrorLine = 0
