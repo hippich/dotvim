@@ -1,3 +1,4 @@
+set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 set term=screen-256color
 
 set nocompatible
@@ -203,7 +204,6 @@ function! s:SwitchPSCStyle()
   endif
   execute "colorscheme ".g:psc_style
 endfunction
-map <silent> <F6> :call <SID>SwitchPSCStyle()<CR>
 
 autocmd BufEnter *.tt set filetype=html
 autocmd BufEnter *. set filetype=html
@@ -240,4 +240,58 @@ map! <Esc>OF <End>
 "execute "set <xDown>=\e[1;*B"
 "execute "set <xRight>=\e[1;*C"
 "execute "set <xLeft>=\e[1;*D"
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['']
+au BufNewFile,BufRead *.ejs set filetype=html
+map <silent> <F6> :call <SID>SwitchPSCStyle()<CR>
+
+if v:version < 700 || exists('loaded_switchcolor') || &cp
+    finish
+endif
+
+let loaded_switchcolor = 1
+
+let paths = split(globpath(&runtimepath, 'colors/*.vim'), "\n")
+let s:swcolors = map(paths, 'fnamemodify(v:val, ":t:r")')
+let s:swskip = [ '256-jungle', '3dglasses', 'calmar256-light', 'coots-beauty-256', 'grb256' ]
+let s:swback = 0    " background variants light/dark was not yet switched
+let s:swindex = 0
+
+function! SwitchColor(swinc)
+
+    " if have switched background: dark/light
+    if (s:swback == 1)
+        let s:swback = 0
+        let s:swindex += a:swinc
+        let i = s:swindex % len(s:swcolors)
+
+        " in skip list
+        if (index(s:swskip, s:swcolors[i]) == -1)
+            execute "colorscheme " . s:swcolors[i]
+        else
+            return SwitchColor(a:swinc)
+        endif
+
+    else
+        let s:swback = 1
+        if (&background == "light")
+            execute "set background=dark"
+        else
+            execute "set background=light"
+        endif
+
+        " roll back if background is not supported
+        if (!exists('g:colors_name'))
+            return SwitchColor(a:swinc)
+        endif
+    endif
+
+    " show current name on screen. :h :echo-redraw
+    redraw
+    execute "colorscheme"
+endfunction
+
+ map <F8>        :call SwitchColor(1)<CR>
+imap <F8>   <Esc>:call SwitchColor(1)<CR>
+
+ map <S-F8>      :call SwitchColor(-1)<CR>
+imap <S-F8> <Esc>:call SwitchColor(-1)<CR>
