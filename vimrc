@@ -19,7 +19,10 @@ filetype plugin indent on
 " set rtp+=~/.vim/bundle/vundle/
 " call vundle#rc()
 
+colorscheme tir_black
+colorscheme simpleandfriendly
 colorscheme zenburn256
+"colorscheme herald
 "set background=dark
 
 let bash_is_sh=1
