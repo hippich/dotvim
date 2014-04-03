@@ -239,3 +239,4 @@ map! <Esc>OF <End>
 "execute "set <xRight>=\e[1;*C"
 "execute "set <xLeft>=\e[1;*D"
 let g:syntastic_javascript_checkers = ['jshint']
+set synmaxcol=240
