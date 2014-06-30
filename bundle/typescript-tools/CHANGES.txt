@@ -1,0 +1,103 @@
+0.3.0 to 0.3.1:
+
+  - update TS to v0.9.1-2505-g18875cc (develop branch)
+
+  - fix #32 (EOLs in bin)
+
+  - fix #33 (-1 return in TSScompleteFunc)
+
+0.2.2-1 to 0.3.0:
+
+  - update TS to v0.9.1-2130-g0c53b50 (develop branch, about TS v1.0 release)
+
+  - fix tss command help
+
+  - fix #23 (bin/tss executable bit)
+
+  - primitive types have no completion details #29
+
+  - tss.vim:
+    - change `TSSstructure` to popup nagivation menu
+    - add `TSSfile`: quickly open project files, with filename completion
+    - add `TSSfilesMenu`: quickly open project files, with popup navigation menu
+    - add sample keymap
+    - guard against tss not running/no python
+    - only use shell on windows; fixes #18
+    - improve TSSstatus();"tss not running" handling #29
+
+0.2.1 to 0.2.2-1:             NOTE: package name changed!
+
+  - same code as 0.2.1, packaged slightly differently:
+
+    - package name changed from `tss` to `typescript-tools`
+      (matches repo name, is descriptive and easier to find
+       in package lists)
+
+      NOTE: remember to uninstall previous version (named `tss`)
+
+    - Vim plugin reorganised as a filetype plugin
+      (so you can just add the repo path to Vim's runtime path
+       and enable filetype plugins)
+
+0.2.0 to 0.2.1:
+
+  - store project files in dependency-first order
+    (avoids some spurious type errors)
+
+  - updated TS to v0.9.1-376-gad18600
+
+  - patch for #15 (TS issue 1651)
+
+  - several fixes in file `update` handling
+
+  - `update`: show syntax/semantics error count (works around TS issue 1592),
+    distinguish updated from added files (highlights file addition accidents);
+    for speed in combination with completions, use `update nocheck`, with fallback
+    to full `update` when `completions` fails (cf #13,#14)
+
+  - fixes in `completions`, `definitions`, and `showErrors`
+
+  - add `--version` flag, use 'git describe --tags' for versioning
+
+  - improved tests and commandline debugging; add basic Makefile
+
+  - improved file path resolution and normalization
+
+  - `showErrors`: provide category of diagnostic (error/warning)
+    and phase which generated it (resolution/syntax/semantics)
+
+  - add `structure` command (getScriptLexicalStructure)
+
+  - tss.vim: rudimentary support for
+      - showing file structure `TSSstructure`
+      - listing project files `TSSfiles`
+      - browsing MDN docs for EcmaScript global object properties&methods
+
+0.1.0 to 0.2.0:
+
+  - partial rewrite, including PROTOCOL CHANGES
+    (outlined below, see README.md for details of current protocol)
+
+  - tss v0.2 supports/uses TypeScript v0.9
+
+  - `symbol` command is gone
+    (use `type` command instead, properties `fullSymbolName` and `type`)
+
+  - commands now return `{line,character}` records, whereever positions are concerned
+
+  - `completions-brief` command omits `type`/`docComment` details
+
+  - `completions` commands prefilter suggestions, based on identifier prefix before cursor
+
+  - `files` command returns list of files in current project
+
+  - `references` command returns list of reference locations (`getReferencesAtPosition`)
+
+  - improved feature test coverage
+
+  - tss.vim:
+    - add TSSreferences command
+    - fix preview window handling
+    - improved tracing and log file handling
+    - set omnifunc only for .ts files
+    - improved update handling

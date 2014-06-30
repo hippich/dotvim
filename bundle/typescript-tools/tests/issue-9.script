@@ -1,0 +1,12 @@
+update 2 PREFIX/empty.ts
+for(;;)
+
+showErrors
+update 2 PREFIX/empty.ts
+for(;;)
+;
+showErrors
+update 2 PREFIX/empty.ts
+for(;;)
+
+showErrors

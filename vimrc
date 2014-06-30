@@ -10,7 +10,7 @@ set list
 runtime! autoload/pathogen.vim
 if exists('g:loaded_pathogen')
   call pathogen#helptags()
-  call pathogen#runtime_prepend_subdirectories(expand('~/.vim/bundles'))
+  call pathogen#runtime_prepend_subdirectories(expand('~/.vim/bundle'))
 end
 
 syntax on
@@ -22,6 +22,7 @@ filetype plugin indent on
 colorscheme tir_black
 colorscheme simpleandfriendly
 colorscheme zenburn256
+"colorscheme vividchalk
 "colorscheme herald
 "set background=dark
 
@@ -102,7 +103,7 @@ set completeopt=menuone,preview
 "inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Omni completion settings
-set ofu=syntaxcomplete#Complete
+"set ofu=syntaxcomplete#Complete
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
 " completing Rails hangs a lot
@@ -298,3 +299,11 @@ imap <F8>   <Esc>:call SwitchColor(1)<CR>
 
  map <S-F8>      :call SwitchColor(-1)<CR>
 imap <S-F8> <Esc>:call SwitchColor(-1)<CR>
+let g:syntastic_javascript_checkers = ['jshint']
+let tern#is_show_argument_hints_enabled='on_move'
+let tern#tern_show_signature_in_pum=1
+set noshowmode
+
+au BufRead,BufNewFile *.ts setlocal filetype=typescript
+set rtp+=~/.vim/bundle/typescript-tools/
+autocmd BufWritePost *.ts :TSSreload
