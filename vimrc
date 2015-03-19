@@ -19,9 +19,12 @@ filetype plugin indent on
 " set rtp+=~/.vim/bundle/vundle/
 " call vundle#rc()
 
-colorscheme tir_black
-colorscheme simpleandfriendly
-colorscheme zenburn256
+""colorscheme tir_black
+""colorscheme simpleandfriendly
+""colorscheme zenburn256
+colorscheme lucius
+LuciusDarkLowContrast
+
 "colorscheme vividchalk
 "colorscheme herald
 "set background=dark
@@ -221,10 +224,8 @@ let mojo_highlight_data = 1
 command W w !sudo tee % > /dev/null
 
 au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
+au BufRead,BufNewFile *.json set filetype=json
 let g:JSLintHighlightErrorLine = 0
-" Vundle bundles 
-" Bundle 'gmarik/vundle'
-" Bundle 'Valloric/YouCompleteMe'
 
 """"""""""""""
 " tmux fixes "
@@ -299,11 +300,14 @@ imap <F8>   <Esc>:call SwitchColor(1)<CR>
 
  map <S-F8>      :call SwitchColor(-1)<CR>
 imap <S-F8> <Esc>:call SwitchColor(-1)<CR>
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
 let tern#is_show_argument_hints_enabled='on_move'
 let tern#tern_show_signature_in_pum=1
 set noshowmode
 
 au BufRead,BufNewFile *.ts setlocal filetype=typescript
 set rtp+=~/.vim/bundle/typescript-tools/
-autocmd BufWritePost *.ts :TSSreload
+let g:syntastic_typescript_tsc_args = '--target ES5 --module amd'
+
+set mouse=a
+set ttymouse=xterm2

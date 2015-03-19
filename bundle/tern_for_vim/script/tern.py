@@ -1,17 +1,40 @@
-import vim, os, platform, subprocess, urllib2, webbrowser, json, re, string, time
+import vim, os, platform, subprocess, webbrowser, json, re, string, time
+import sys
+PY2 = int(sys.version[0]) == 2
+if PY2:
+    import urllib2 as request
+    from urllib2 import HTTPError
+else:  # Py3
+    from urllib import request
+    from urllib.error import HTTPError
+
+    def cmp(a, b):
+        if a < b:
+            return -1
+        elif a > b:
+            return 1
+        else:
+            return 0
+
 from itertools import groupby
 
-opener = urllib2.build_opener(urllib2.ProxyHandler({}))
+opener = request.build_opener(request.ProxyHandler({}))
 
 def tern_displayError(err):
   vim.command("echo " + json.dumps(str(err)))
 
 def tern_makeRequest(port, doc):
+  payload = json.dumps(doc)
+  if not PY2:
+    payload = payload.encode('utf-8')
   try:
-    req = opener.open("http://localhost:" + str(port) + "/", json.dumps(doc),
+    req = opener.open("http://localhost:" + str(port) + "/", payload,
                       float(vim.eval("g:tern_request_timeout")))
-    return json.loads(req.read())
-  except urllib2.HTTPError, error:
+    result = req.read()
+    if not PY2:
+        result = result.decode('utf-8')
+    return json.loads(result)
+  except HTTPError as error:
     tern_displayError(error.read())
     return None
 
@@ -77,13 +100,18 @@ def tern_startServer(project):
   if platform.system() == "Darwin":
     env = os.environ.copy()
     env["PATH"] += ":/usr/local/bin"
-  proc = subprocess.Popen(vim.eval("g:tern#command") + vim.eval("g:tern#arguments"),
-                          cwd=project.dir, env=env,
-                          stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                          stderr=subprocess.STDOUT, shell=win)
+  command = vim.eval("g:tern#command") + vim.eval("g:tern#arguments")
+  try:
+    proc = subprocess.Popen(command,
+                            cwd=project.dir, env=env,
+                            stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT, shell=win)
+  except Exception as e:
+    tern_displayError("Failed to start server: " + str(e))
+    return None
   output = ""
   while True:
-    line = proc.stdout.readline()
+    line = proc.stdout.readline().decode('utf8')
     if not line:
       tern_displayError("Failed to start server" + (output and ":\n" + output))
       project.last_failed = time.time()
@@ -108,7 +136,9 @@ def tern_killServers():
     tern_killServer(project)
 
 def tern_relativeFile():
-  filename = vim.eval("expand('%:p')").decode('utf-8')
+  filename = vim.eval("expand('%:p')")
+  if PY2:
+    filename = filename.decode('utf-8')
   return filename[len(tern_projectDir()) + 1:]
 
 def tern_bufferSlice(buf, pos, end):

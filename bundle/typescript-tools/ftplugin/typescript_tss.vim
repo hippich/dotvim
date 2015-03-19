@@ -4,6 +4,23 @@ endif
 if !has("python")
   echoerr "typescript_tss.vim needs python interface"
   finish
+else
+
+python <<EOF
+import vim
+import subprocess
+import json
+import logging, platform
+TSS_LOG_FILENAME='tsstrace.log'
+
+class TSSnotrunning:
+  def poll(self):
+    return 0
+
+tss = TSSnotrunning()
+TSS_NOT_RUNNING_MSG='TSS not running - start with :TSSstarthere on main file'
+EOF
+
 endif
 let g:TSSloaded = 1
 
@@ -29,17 +46,6 @@ if !exists("g:TSSfiles")
 endif
 
 py TSS_MDN = "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/"
-
-python <<EOF
-import logging, platform
-TSS_LOG_FILENAME='tsstrace.log'
-
-class TSSnotrunning:
-  def poll(self):
-    return 0
-
-tss = TSSnotrunning()
-EOF
 
 " sample keymapping
 " (highjacking some keys otherwise used for tags,
@@ -154,7 +160,11 @@ function! TSSdef(cmd)
   let info = TSScmd("definition",{})
   if type(info)!=type({}) || info.file=='null' || type(info.min)!=type({})
     \ || type(info.min.line)!=type(0) || type(info.min.character)!=type(0)
-    echoerr 'no useable definition information'
+    if type(info)==type("")
+      echoerr info
+    else
+      echoerr 'no useable definition information'
+    endif
     return info
   endif
   if a:cmd=="pedit"
@@ -217,7 +227,9 @@ function! TSScompleteFunc(findstart,base)
   endwhile
 
   if a:findstart
-    if TSSstatus()!="None" | echoerr "TSS not running" | endif
+    if TSSstatus()!="None"
+      py vim.command('echoerr "'+TSS_NOT_RUNNING_MSG+'"')
+    endif
 
     " force updates for completed fragments, while still in insert mode
     " bypass error checking (cf #13,#14)
@@ -423,9 +435,6 @@ command! TSSstarthere call TSSstart(expand("%"))
 function! TSSstart(projectroot)
 echomsg "starting TSS, loading ".a:projectroot."..."
 python <<EOF
-import subprocess
-import vim
-import json
 
 projectroot = vim.eval("a:projectroot")
 print(vim.eval("g:TSS")+[projectroot])
@@ -508,7 +517,7 @@ if tss.poll()==None:
     result = '"null"'
 
 else:
-  result = '"TSS not running"'
+  result = '"'+TSS_NOT_RUNNING_MSG+'"'
 
 vim.command("let null = 'null'")
 vim.command("let true = 'true'")
@@ -524,7 +533,6 @@ endfunction
 command! TSSstatus echo TSSstatus()
 function! TSSstatus()
 python <<EOF
-import json
 
 rest = tss.poll()
 vim.command("return "+json.dumps(str(rest)))
@@ -541,7 +549,7 @@ if tss.poll()==None:
   rest = tss.communicate('quit')[0]
   sys.stdout.write(rest)
 else:
-  sys.stdout.write('TSS not running\n')
+  sys.stdout.write(TSS_NOT_RUNNING_MSG+'\n')
 
 EOF
 endfunction

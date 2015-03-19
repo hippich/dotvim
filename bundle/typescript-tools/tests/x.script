@@ -1,0 +1,6 @@
+update 5 empty.ts
+var Something = {
+  get name() {
+    return 'test';
+  }
+};
