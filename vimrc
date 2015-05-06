@@ -170,7 +170,10 @@ nmap <leader>SA :SessionSaveAs<CR>
 let g:miniBufExplVSplit = 25
 let g:miniBufExplorerMoreThanOne = 100
 let g:miniBufExplUseSingleClick = 1
-nmap <Leader>b :MiniBufExplorer<cr>
+"nmap <Leader>b :MiniBufExplorer<cr>
+
+" ,b to display current buffers via FuzzyFinder
+"nmap <Leader>b :FufBuffer<cr>
 
 let g:Conque_Read_Timeout = 50 " timeout for waiting for command output.
 let g:Conque_TERM = 'xterm'
@@ -306,7 +309,7 @@ let tern#tern_show_signature_in_pum=1
 set noshowmode
 
 au BufRead,BufNewFile *.ts setlocal filetype=typescript
-set rtp+=~/.vim/bundle/typescript-tools/
+set rtp+=~/.vim/bundle/typescript-tools.vim/
 let g:syntastic_typescript_tsc_args = '--target ES5 --module amd'
 
 set mouse=a
