@@ -310,7 +310,8 @@ set noshowmode
 
 au BufRead,BufNewFile *.ts setlocal filetype=typescript
 set rtp+=~/.vim/bundle/typescript-tools.vim/
-let g:syntastic_typescript_tsc_args = '--target ES5 --module amd'
+let g:syntastic_typescript_tsc_args = '--target ES5 --module amd --outDir /tmp/tss'
+let g:loaded_syntastic_typescript_tsc_checker = 0
 
 set mouse=a
 set ttymouse=xterm2
