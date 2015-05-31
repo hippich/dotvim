@@ -46,7 +46,7 @@ Check out the 'vimrc' file for more...
     * `,cu` - Uncomment
     * check docs for more
 
-*   fuzzyfinder 3.5 ([vim.org](http://www.vim.org/scripts/script.php?script_id=1984))
+*   fuzzyfinder [2015-05-31 dev snapshot] ([vim.org](http://www.vim.org/scripts/script.php?script_id=1984))
 
     buffer/file/command/tag/etc explorer with fuzzy matching
 
