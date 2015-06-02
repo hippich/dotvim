@@ -30,6 +30,10 @@ Check out the 'vimrc' file for more...
 
 #### "Interesting" Plugins:
 
+*   easy motion ([github](https://github.com/Lokaltog/vim-easymotion))
+
+    Vim motions on speed.
+
 *   nerdtree ([github](http://github.com/scrooloose/nerdtree))
 
     hax0r vim script to give you a tree explorer
