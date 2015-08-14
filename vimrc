@@ -315,3 +315,6 @@ let g:loaded_syntastic_typescript_tsc_checker = 0
 
 set mouse=a
 set ttymouse=xterm2
+
+" Copy current file path to X buffer
+nmap <silent> <leader>cp :let @+ = expand("%")<CR>
