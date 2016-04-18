@@ -4,6 +4,9 @@ set term=screen-256color
 set nocompatible
 set t_Co=256
 
+set cursorline
+set cursorcolumn
+
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set list
 
