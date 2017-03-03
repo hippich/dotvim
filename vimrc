@@ -321,3 +321,11 @@ set ttymouse=xterm2
 
 " Copy current file path to X buffer
 nmap <silent> <leader>cp :let @+ = expand("%")<CR>
+
+let g:tsuquyomi_completion_detail = 1
+let g:tsuquyomi_completion_preview = 1
+autocmd FileType typescript setlocal completeopt+=menu,preview
+autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
+
